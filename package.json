@@ -3,20 +3,25 @@
   "version": "0.10.2",
   "description": "fullpage piling",
   "main": "./dist/wall.min.js",
-  "keywords": ["fullpage", "fullscreen", "scrolling", "scroll"],
+  "keywords": [
+    "fullpage",
+    "fullscreen",
+    "scrolling",
+    "scroll"
+  ],
   "scripts": {
     "build": "cross-env WEBPACK_ENV=build webpack",
     "dev": "cross-env WEBPACK_ENV=dev webpack --colors --watch"
   },
   "author": {
-    "name": "nichenqin",
-    "email": "nichenqin@hotmail.com",
-    "url": "nichenqin.com"
+    "name": "identity16",
+    "email": "dnjswns0930@gmail.com",
+    "url": "https://identity16.github.io"
   },
-  "homepage": "https://github.com/nichenqin1001/wall.js",
+  "homepage": "https://github.com/identity16/wall.js",
   "bugs": {
-    "url": "https://github.com/nichenqin1001/wall.js/issues",
-    "email": "nichenqin@hotmail.com"
+    "url": "https://github.com/identity16/wall.js/issues",
+    "email": "dnjswns0930@gmail.com"
   },
   "license": "MIT",
   "devDependencies": {
