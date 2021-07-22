@@ -164,8 +164,8 @@ if (window.navigator.msPointerEnabled) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['wrapper'], ['wrapper']),
-    _templateObject2 = _taggedTemplateLiteral(['sections'], ['sections']);
+var _templateObject = _taggedTemplateLiteral(["wrapper"], ["wrapper"]),
+    _templateObject2 = _taggedTemplateLiteral(["sections"], ["sections"]);
 
 var _utils = __webpack_require__(2);
 
@@ -189,38 +189,39 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var SCREEN_SECTION = 'section';
-var SCREEN_SLIDE = 'slide';
-var DATA_PRE = 'data-wall';
+var SCREEN_SECTION = "section";
+var SCREEN_SLIDE = "slide";
+var DATA_PRE = "data-wall";
 
-var ANIMATE_DURATION = DATA_PRE + '-animate-duration';
+var ANIMATE_DURATION = DATA_PRE + "-animate-duration";
 
-var CURRENT_INDEX = DATA_PRE + '-current-section';
+var CURRENT_INDEX = DATA_PRE + "-current-section";
 
-var SECTION_NAV = DATA_PRE + '-section-nav';
-var SECTION_INDEX = DATA_PRE + '-section-index';
+var SECTION_NAV = DATA_PRE + "-section-nav";
+var SECTION_INDEX = DATA_PRE + "-section-index";
 
-var SECTION_NAV_INDEX = DATA_PRE + '-section-nav-index';
+var SECTION_NAV_INDEX = DATA_PRE + "-section-nav-index";
 
-var SLIDE = DATA_PRE + '-slide';
-var SLIDE_INDEX = DATA_PRE + '-slide-index';
-var SLIDE_ARROW = DATA_PRE + '-slide-arrow';
+var SLIDE = DATA_PRE + "-slide";
+var SLIDE_INDEX = DATA_PRE + "-slide-index";
+var SLIDE_ARROW = DATA_PRE + "-slide-arrow";
 
-var IMAGE_ORIGIN = DATA_PRE + '-origin';
+var IMAGE_ORIGIN = DATA_PRE + "-origin";
 
 var defaultOptions = {
   wrapperZIndex: 1,
   sectionAnimateDuration: 1,
-  easeFunction: 'easeIn',
+  easeFunction: "easeIn",
   loopToBottom: false,
   loopToTop: false,
-  sectionNavItemActiveClass: 'active',
-  animatingClass: 'animating',
-  currentClass: 'current'
+  sectionNavItemActiveClass: "active",
+  animatingClass: "animating",
+  currentClass: "current",
+  scrollThreshold: 40
 };
 
-var html = document.getElementsByTagName('html')[0];
-var body = document.getElementsByTagName('body')[0];
+var html = document.getElementsByTagName("html")[0];
+var body = document.getElementsByTagName("body")[0];
 
 var Wall = function () {
   function Wall() {
@@ -230,7 +231,7 @@ var Wall = function () {
     _classCallCheck(this, Wall);
 
     // get wrapper which contains sections
-    this.wrapper = typeof wrapper === 'string' ? document.querySelector(wrapper) : wrapper;
+    this.wrapper = typeof wrapper === "string" ? document.querySelector(wrapper) : wrapper;
     // get child sections, if no section contains, throw a new error
     this.sections = this.wrapper.children.length ? (0, _utils.toArray)(this.wrapper.children) : (0, _utils.throwNewError)(_templateObject2);
     this.currentSection = null;
@@ -244,16 +245,16 @@ var Wall = function () {
     this.currentScreenPosition = 0;
 
     // mark if use transform 3d for smooth animation
-    this.translateZ = _dom.hasTransform3d ? 'translateZ(0)' : '';
+    this.translateZ = _dom.hasTransform3d ? "translateZ(0)" : "";
     // init screen size, X presents width, Y presents height
     this.size = { X: 0, Y: 0 };
 
     // merge default options and custom options
     this.options = (0, _utils.merge)(defaultOptions, options);
     // set up nav element
-    this.navElements = (0, _utils.toArray)(document.querySelectorAll('[' + SECTION_NAV + ']'));
+    this.navElements = (0, _utils.toArray)(document.querySelectorAll("[" + SECTION_NAV + "]"));
 
-    this.easeFunction = typeof this.options.easeFunction === 'string' ? easing[this.options.easeFunction] : this.options.easeFunction;
+    this.easeFunction = typeof this.options.easeFunction === "string" ? easing[this.options.easeFunction] : this.options.easeFunction;
 
     // animation time stamp, control speed
     this.lastTime = null;
@@ -269,19 +270,19 @@ var Wall = function () {
   }
 
   _createClass(Wall, [{
-    key: '_init',
+    key: "_init",
     value: function _init() {
       var _this = this;
 
       this._refresh(true);
 
-      window.addEventListener('resize', function () {
+      window.addEventListener("resize", function () {
         _this._setupSize()._cssWrapper();
       });
-      document.addEventListener('keydown', this._handleKeyDown.bind(this));
+      document.addEventListener("keydown", this._handleKeyDown.bind(this));
     }
   }, {
-    key: '_refresh',
+    key: "_refresh",
     value: function _refresh(force) {
       var _this2 = this;
 
@@ -325,14 +326,14 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_setupSize',
+    key: "_setupSize",
     value: function _setupSize() {
       this.size.X = (0, _dom.getScreenWidth)();
       this.size.Y = (0, _dom.getScreenHeight)();
       return this;
     }
   }, {
-    key: '_setupSections',
+    key: "_setupSections",
     value: function _setupSections() {
       var _this3 = this;
 
@@ -350,35 +351,49 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_handleKeyDown',
+    key: "_handleKeyDown",
     value: function _handleKeyDown(e) {
       switch (e.keyCode) {
-        case 34:case 40:
-          if ((0, _dom.scrollTouchBottom)(this.currentSection)) this.nextSection();break;
-        case 33:case 38:
-          if ((0, _dom.scrollTouchTop)(this.currentSection)) this.prevSection();break;
+        case 34:
+        case 40:
+          if ((0, _dom.scrollTouchBottom)(this.currentSection)) this.nextSection();
+          break;
+        case 33:
+        case 38:
+          if ((0, _dom.scrollTouchTop)(this.currentSection)) this.prevSection();
+          break;
         case 37:
-          if (this.currentSlide) this.prevSlide();break;
+          if (this.currentSlide) this.prevSlide();
+          break;
         case 39:
-          if (this.currentSlide) this.nextSlide();break;
+          if (this.currentSlide) this.nextSlide();
+          break;
         case 36:
-          this.goToSection(1);break;
+          this.goToSection(1);
+          break;
         case 35:
-          this.goToSection(this.sections.length);break;
+          this.goToSection(this.sections.length);
+          break;
       }
     }
   }, {
-    key: '_handleWheelEvent',
+    key: "_handleWheelEvent",
     value: function _handleWheelEvent(e) {
-      var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
+      var delta = Math.max(-this.options.scrollThreshold, Math.min(this.options.scrollThreshold, e.wheelDelta || -e.detail));
 
-      if ((0, _dom.scrollTouchBottom)(this.currentSection) && delta === -1) this.nextSection();
-      if ((0, _dom.scrollTouchTop)(this.currentSection) && delta === 1) this.prevSection();
+      console.log(-e.deltaY);
+
+      if ((0, _dom.scrollTouchBottom)(this.currentSection) && delta === -this.options.scrollThreshold) {
+        this.nextSection();
+      }
+      if ((0, _dom.scrollTouchTop)(this.currentSection) && delta === this.options.scrollThreshold) {
+        this.prevSection();
+      }
 
       return this;
     }
   }, {
-    key: '_setupSectionNav',
+    key: "_setupSectionNav",
     value: function _setupSectionNav() {
       var _this4 = this;
 
@@ -389,7 +404,7 @@ var Wall = function () {
           var navItems = (0, _utils.toArray)(navElement.children);
           navItems.forEach(function (item, index) {
             item.setAttribute(SECTION_NAV_INDEX, index + 1);
-            item.addEventListener('click', function () {
+            item.addEventListener("click", function () {
               _this4.goToSection(item.getAttribute(SECTION_NAV_INDEX));
             });
           });
@@ -399,18 +414,18 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_setupSlides',
+    key: "_setupSlides",
     value: function _setupSlides() {
-      this.currentSlides = (0, _utils.toArray)(this.currentSection.querySelectorAll('[' + SLIDE + ']'));
+      this.currentSlides = (0, _utils.toArray)(this.currentSection.querySelectorAll("[" + SLIDE + "]"));
 
       this.sections.forEach(function (section) {
-        var slides = (0, _utils.toArray)(section.querySelectorAll('[' + SLIDE + ']'));
-        var arrows = (0, _utils.toArray)(section.querySelectorAll('[' + SLIDE_ARROW + ']'));
+        var slides = (0, _utils.toArray)(section.querySelectorAll("[" + SLIDE + "]"));
+        var arrows = (0, _utils.toArray)(section.querySelectorAll("[" + SLIDE_ARROW + "]"));
         if (slides.length) {
           slides.forEach(function (slide, index) {
             (0, _dom.maxScreen)(slide);
-            slide.style.overflowX = 'hidden';
-            slide.style.overflowY = 'auto';
+            slide.style.overflowX = "hidden";
+            slide.style.overflowY = "auto";
 
             slide.setAttribute(SLIDE_INDEX, index + 1);
           });
@@ -428,47 +443,47 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_cssHtmlAndBody',
+    key: "_cssHtmlAndBody",
     value: function _cssHtmlAndBody() {
-      html.style.height = '100%';
-      html.style.overflow = 'hidden';
-      body.style.height = '100%';
-      body.style.position = 'relative';
+      html.style.height = "100%";
+      html.style.overflow = "hidden";
+      body.style.height = "100%";
+      body.style.position = "relative";
       body.style.margin = 0;
-      body.style.overflow = 'hidden';
+      body.style.overflow = "hidden";
       return this;
     }
   }, {
-    key: '_cssWrapper',
+    key: "_cssWrapper",
     value: function _cssWrapper() {
-      this.wrapper.style.position = 'relative';
-      this.wrapper.style.height = '100%';
+      this.wrapper.style.position = "relative";
+      this.wrapper.style.height = "100%";
       this.wrapper.style.zIndex = this.options.wrapperZIndex;
       return this;
     }
   }, {
-    key: '_cssSections',
+    key: "_cssSections",
     value: function _cssSections() {
       var _this5 = this;
 
       this.sections.forEach(function (section) {
         (0, _dom.maxScreen)(section);
-        section.style.height = _this5.size.Y + 'px';
-        section.style.overflowX = 'hidden';
-        section.style.overflowY = 'auto';
+        section.style.height = _this5.size.Y + "px";
+        section.style.overflowX = "hidden";
+        section.style.overflowY = "auto";
       });
       return this;
     }
   }, {
-    key: '_lazyload',
+    key: "_lazyload",
     value: function _lazyload(currentScreen) {
-      var images = (0, _utils.toArray)(currentScreen.querySelectorAll('[' + IMAGE_ORIGIN + ']'));
+      var images = (0, _utils.toArray)(currentScreen.querySelectorAll("[" + IMAGE_ORIGIN + "]"));
       images.forEach(function (image) {
-        return image.setAttribute('src', image.getAttribute(IMAGE_ORIGIN));
+        return image.setAttribute("src", image.getAttribute(IMAGE_ORIGIN));
       });
     }
   }, {
-    key: '_queue',
+    key: "_queue",
     value: function _queue(screenList) {
       var _this6 = this;
 
@@ -484,7 +499,7 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_resetCurrentSlides',
+    key: "_resetCurrentSlides",
     value: function _resetCurrentSlides() {
       var _sections3 = _toArray(this.sections);
 
@@ -492,7 +507,7 @@ var Wall = function () {
       this.restSections = _sections3.slice(1);
 
 
-      this.currentSlides = (0, _utils.toArray)(this.currentSection.querySelectorAll('[' + SLIDE + ']')).sort(function (a, b) {
+      this.currentSlides = (0, _utils.toArray)(this.currentSection.querySelectorAll("[" + SLIDE + "]")).sort(function (a, b) {
         return +b.style.zIndex - +a.style.zIndex;
       });
 
@@ -508,7 +523,7 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_refreshAnimateStatus',
+    key: "_refreshAnimateStatus",
     value: function _refreshAnimateStatus(isToBack) {
       this.isToBack = isToBack;
       (0, _dom.cAF)(this.requestId);
@@ -524,7 +539,7 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_animateScreen',
+    key: "_animateScreen",
     value: function _animateScreen(currentScreen, screenList) {
       var now = Date.now();
       var delta = (now - this.lastTime) / 1000;
@@ -539,14 +554,14 @@ var Wall = function () {
         this._refresh()._queue(screenList);
         if (this.screenType === SCREEN_SECTION) this._resetCurrentSlides();
         return this;
-      };
+      }
 
       if (this.isAnimating) {
         return this.requestId = (0, _dom.rAF)(this._animateScreen.bind(this, currentScreen, screenList));
-      };
+      }
     }
   }, {
-    key: '_updateCurrentScreenPosition',
+    key: "_updateCurrentScreenPosition",
     value: function _updateCurrentScreenPosition(delta) {
       var currentDuration = this.screenType === SCREEN_SECTION ? +this.currentSection.getAttribute(ANIMATE_DURATION) : +this.currentSlide.getAttribute(ANIMATE_DURATION);
       var duration = currentDuration || this.options.sectionAnimateDuration;
@@ -556,24 +571,24 @@ var Wall = function () {
       return this;
     }
   }, {
-    key: '_renderSectionPosition',
+    key: "_renderSectionPosition",
     value: function _renderSectionPosition(screen, pos) {
       switch (this.screenType) {
         case SCREEN_SECTION:
-          screen.style[_dom.transformProp] = 'translate(0, -' + pos + '%) ' + this.translateZ;
+          screen.style[_dom.transformProp] = "translate(0, -" + pos + "%) " + this.translateZ;
           break;
         case SCREEN_SLIDE:
-          screen.style[_dom.transformProp] = 'translate(-' + pos + '%, 0) ' + this.translateZ;
+          screen.style[_dom.transformProp] = "translate(-" + pos + "%, 0) " + this.translateZ;
           break;
       }
     }
   }, {
-    key: '_getCurrentSectionIndex',
+    key: "_getCurrentSectionIndex",
     value: function _getCurrentSectionIndex() {
       return this.currentSection.getAttribute(SECTION_INDEX);
     }
   }, {
-    key: '_renderSectionNavs',
+    key: "_renderSectionNavs",
     value: function _renderSectionNavs() {
       var _this7 = this;
 
@@ -595,7 +610,7 @@ var Wall = function () {
       }
     }
   }, {
-    key: 'prevSection',
+    key: "prevSection",
     value: function prevSection() {
       if (!this.options.loopToBottom && this._getCurrentSectionIndex() == 1) return;
 
@@ -616,7 +631,7 @@ var Wall = function () {
       }
     }
   }, {
-    key: 'nextSection',
+    key: "nextSection",
     value: function nextSection() {
       if (!this.options.loopToTop && this._getCurrentSectionIndex() == this.sections.length) return;
 
@@ -629,7 +644,7 @@ var Wall = function () {
       }
     }
   }, {
-    key: 'goToSection',
+    key: "goToSection",
     value: function goToSection(index) {
       if (index === this._getCurrentSectionIndex()) return;
 
@@ -655,7 +670,7 @@ var Wall = function () {
       }
     }
   }, {
-    key: 'prevSlide',
+    key: "prevSlide",
     value: function prevSlide() {
       if (!this.isAnimating) {
         var _currentSlides$revers = this.currentSlides.reverse();
@@ -672,7 +687,7 @@ var Wall = function () {
       }
     }
   }, {
-    key: 'nextSlide',
+    key: "nextSlide",
     value: function nextSlide() {
       if (!this.isAnimating) {
         this.currentSlides = [].concat(_toConsumableArray(this.restSlides), [this.currentSlide]);
